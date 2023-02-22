@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Portfolio Details</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Advertisement Details</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Portfolio Details Section ======= -->
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-8">
+          <div class="portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+
+              <div class="swiper-slide">
+                {% if "placeholder" in post.featured_image.url %}
+                    <img 
+                        src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                  {% else %}
+                    <img  src=" {{ post.featured_image.url }}">
+                  {% endif %}
+              </div>
+
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="portfolio-info">
+            <h3>{{post.title}}</h3>
+            <ul>
+              <li><strong>Category</strong>: <a href="#">{{ post.category }}</a></li>
+              <li><strong>Cost</strong>: {{ post.cost }}</li>
+              <li><strong>Condition</strong>: {{ post.condition }}</li>
+              <li><strong>Color</strong>: {{ post.color }}</li>
+              <li><strong>Dimensions</strong>: {{ post.dimensions }}</li>
+              <li><strong>Address</strong>: {{ post.address }}</li>
+              <li><strong>Seller</strong>: {{ post.author }}</li>
+            </ul>
+          </div>
+          <div class="portfolio-description">
+            <h2>More description</h2>
+            {% if post.description %}
+              <p>
+                {{ post.description|safe }}
+              </p>
+            {% else %}
+              <p>
+                No more description
+              </p>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Details Section -->
+
+{% endblock content %}
