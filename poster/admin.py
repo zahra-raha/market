@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Post
+from .models import Category, Post, Customer
 from django_summernote.admin import SummernoteModelAdmin
 
 
@@ -8,6 +8,14 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_on')
     list_filter = ('created_on',)
     search_fields = ['name']
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'message', 'created_on')
+    list_filter = ('created_on',)
+    search_fields = ['name', 'post']
+    summernote_fields = ('message')
 
 
 @admin.register(Post)
