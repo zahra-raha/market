@@ -17,11 +17,25 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-  {% if not post.approved %}
-  <div class="container">
+  {% if messages %}
+  <div class="container portfolio-details">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                {{ message | safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if not post.approved %}
+  <div class="container portfolio-details">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
               <strong>This Advertisement will show in the advertisement list as soon as site admin approve it.</strong>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -36,7 +50,7 @@
       <div class="row gy-4">
 
         <div class="col-lg-8">
-          <div class="portfolio-details-slider swiper">
+          <div class=" swiper">
             <div class="swiper-wrapper align-items-center">
 
               <div class="swiper-slide">
@@ -71,9 +85,11 @@
               {% endif %}
             </ul>
             {% if user.is_authenticated and post.seller|stringformat:"s" == user.username %}
-             
               <a href="{% url 'post_update' post.slug %}"><button class="get-started-btn scrollto">Edit</button></a>
               <a href="{% url 'post_delete' post.slug %}"><button class="get-started-btn scrollto">Delete</button></a>
+            {% endif%}
+            {% if post.seller|stringformat:"s" != user.username %}
+              <a href="{% url 'buy' post.slug %}"><button class="get-started-btn scrollto">Buy</button></a>
             {% endif %}
           </div>
           <div class="portfolio-description">

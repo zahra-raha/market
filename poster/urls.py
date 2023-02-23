@@ -7,6 +7,8 @@ urlpatterns = [
     path("post/new", views.NewPost.as_view(), name="new_post"),
     path('post/edit/<slug:slug>/', views.EditPost.as_view(),
          name='post_update'),
+    path('post/buy/<slug:slug>/', views.BuyPost.as_view(),
+         name='buy'),
     path('post/status/<slug:slug>/', views.PostSold.as_view(),
          name='post_status'),
     path('post/delete/<slug:slug>/', views.DeletePost.as_view(),
