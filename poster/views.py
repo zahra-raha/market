@@ -29,7 +29,7 @@ class PostDetail(View):
         category = post.category
         return render(
             request,
-            "post_detail.html",
+            "post/post_detail.html",
             {
                 "post": post,
                 "category": category,
@@ -41,7 +41,7 @@ class MyPostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=0).filter(
         approved=True).order_by('-created_on')
-    template_name = 'my_posts.html'
+    template_name = 'post/my_posts.html'
     paginate_by = 6
 
     def get_queryset(self):
@@ -52,7 +52,7 @@ class NewPost(View):
     def get(self, request):
         return render(
             request,
-            "new_post.html",
+            "post/new_post.html",
             {
                 "post_form": PostForm
             },
@@ -69,7 +69,7 @@ class NewPost(View):
             category = post.category
             return render(
                 request,
-                "post_detail.html",
+                "post/post_detail.html",
                 {
                     "post": post,
                     "category": category,
@@ -79,7 +79,7 @@ class NewPost(View):
             post_form = PostForm()
             return render(
                 request,
-                "new_post.html",
+                "post/new_post.html",
                 {
                     "post_form": PostForm
                 },
@@ -93,7 +93,7 @@ class EditPost(View):
         post_form = PostForm(instance=post)
         return render(
             request,
-            "edit_post.html",
+            "post/edit_post.html",
             {
                 "post_form": post_form
             },
@@ -112,7 +112,7 @@ class EditPost(View):
             category = epost.category
             return render(
                 request,
-                "post_detail.html",
+                "post/post_detail.html",
                 {
                     "post": epost,
                     "category": category,
@@ -122,7 +122,7 @@ class EditPost(View):
             post_form = PostForm()
             return render(
                 request,
-                "new_post.html",
+                "post/new_post.html",
                 {
                     "post_form": PostForm
                 },
@@ -131,7 +131,7 @@ class EditPost(View):
 
 class DeletePost(generic.DeleteView):
     model = Post
-    template_name = 'post_confirm_delete.html'
+    template_name = 'post/post_confirm_delete.html'
     success_url = "/posts/my-posts"
 
 
