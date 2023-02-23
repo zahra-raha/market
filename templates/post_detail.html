@@ -17,7 +17,18 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-
+  {% if not post.approved %}
+  <div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+              <strong>This Advertisement will show in the advertisement list as soon as site admin approve it.</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+  </div>
+  {% endif %}
   <!-- ======= Portfolio Details Section ======= -->
   <section id="portfolio-details" class="portfolio-details">
     <div class="container">

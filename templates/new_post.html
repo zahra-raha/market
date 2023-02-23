@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load cloudinary %}
+
 {% block content %}
   <!-- ======= Breadcrumbs ======= -->
   <section class="breadcrumbs">
@@ -22,7 +24,7 @@
         {% if user.is_authenticated %}
 
             <p>Posting as: {{ user.username }}</p>
-            <form method="post" style="margin-top: 1.3em;">
+            <form method="post" style="margin-top: 1.3em;" enctype="multipart/form-data">
                 {{ post_form | crispy }}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-signup btn-lg">Submit</button>
