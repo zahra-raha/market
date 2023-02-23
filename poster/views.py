@@ -50,7 +50,6 @@ class MyPostList(generic.ListView):
 
 class NewPost(View):
     def get(self, request):
-        
         return render(
             request,
             "new_post.html",
@@ -90,7 +89,7 @@ class NewPost(View):
 class EditPost(View):
     def get(self, request, slug, *args, **kwargs):
         queryset = Post.objects
-        post = get_object_or_404(queryset, slug=slug) 
+        post = get_object_or_404(queryset, slug=slug)
         post_form = PostForm(instance=post)
         return render(
             request,
@@ -102,8 +101,9 @@ class EditPost(View):
 
     def post(self, request, slug, *args, **kwargs):
         queryset = Post.objects
-        post = get_object_or_404(queryset, slug=slug) 
-        post_form = PostForm(data=request.POST, files=request.FILES, instance=post)
+        post = get_object_or_404(queryset, slug=slug)
+        post_form = PostForm(data=request.POST, files=request.FILES,
+                             instance=post)
 
         if post_form.is_valid():
             epost = post_form.save(commit=False)
@@ -128,8 +128,12 @@ class EditPost(View):
                 },
             )
 
-    
-   
+
+class DeletePost(generic.DeleteView):
+    model = Post
+    template_name = 'post_confirm_delete.html'
+    success_url = "/posts/my-posts"
+
 
 class CategoryList(generic.ListView):
     model = Category

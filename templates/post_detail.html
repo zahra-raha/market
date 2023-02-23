@@ -67,6 +67,7 @@
             </ul>
             {% if user.is_authenticated and post.seller|stringformat:"s" == user.username %}
               <a href="{% url 'post_update' post.slug %}"><button class="get-started-btn scrollto">Edit</button></a>
+              <a href="{% url 'post_delete' post.slug %}"><button class="get-started-btn scrollto">Delete</button></a>
             {% endif %}
           </div>
           <div class="portfolio-description">

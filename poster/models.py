@@ -58,7 +58,7 @@ class Post(models.Model):
 
     def is_upperclass(self):
         return self.condition in {self.VERY_GOOD, self.GOOD}
-    
+
     def __str__(self):
         return self.title
 
@@ -68,7 +68,7 @@ class Customer(models.Model):
     phone = models.CharField(max_length=15)
     message = models.TextField(blank=True)
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE,
-                             related_name="posts")
+                                related_name="posts")
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -76,4 +76,3 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-
