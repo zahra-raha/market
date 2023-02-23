@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.utils.decorators import method_decorator
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views import generic, View
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from .models import Post, Category
+from .models import Post, Category, Customer
 from .forms import PostForm, CustomerForm
 from django.template.defaultfilters import slugify
 import cloudinary
@@ -185,8 +186,18 @@ class DeletePost(SuccessMessageMixin, generic.DeleteView):
     success_url = "/posts/my-posts"
 
 
-class CategoryList(generic.ListView):
-    model = Category
-    queryset = Category.objects.order_by('-created_on')
-    template_name = 'category.html'
-    paginate_by = 6
+class Customers(View):
+    def get(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+        customer_list = Customer.objects.filter(post_id=post).order_by(
+                                                '-created_on')
+        paginator = Paginator(customer_list, 4)
+        page = request.GET.get('page')
+        customer_list = paginator.get_page(page)
+        return render(
+            request,
+            "post/customers.html",
+            {
+                "customer_list": customer_list,
+            },
+        )

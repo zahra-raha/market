@@ -9,6 +9,8 @@ urlpatterns = [
          name='post_update'),
     path('post/buy/<slug:slug>/', views.BuyPost.as_view(),
          name='buy'),
+    path('post/customers/<slug:slug>/', views.Customers.as_view(),
+         name='view_customers'),
     path('post/status/<slug:slug>/', views.PostSold.as_view(),
          name='post_status'),
     path('post/delete/<slug:slug>/', views.DeletePost.as_view(),

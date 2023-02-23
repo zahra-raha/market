@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>New Addvertisement</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>New Addvertisement</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+    
+            <div class="section-title">
+            <h2>Customers</h2>
+            <p>Check out for Prospective Customer</p>
+            </div>
+            <div class="row gy-6 mt-7 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+                {% for customer in customer_list %}
+                <div class="col-xl-2 col-md-4">
+                  <div class="icon-box">
+                    <h3>{{customer.name}}</h3>
+                    <h5>{{customer.phone}}</h5>
+                    <p>{{customer.message}}</p>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+        </div>
+        <nav aria-label="Page navigation" class="m-4">
+            <span class="step-links pagination justify-content-center">
+                {% if customer_list.has_previous %}
+                    <a href="?page={{ customer_list.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ customer_list.number }} of {{ customer_list.paginator.num_pages }}.
+                </span>
+        
+                {% if customer_list.has_next %}
+                    <a href="?page={{ customer_list.next_page_number }}">next</a>
+                    <!-- <a href="?page={{ customer_list.paginator.num_pages }}">last &raquo;</a> -->
+                {% endif %}
+            </span>
+        </nav>
+
+    </section><!-- End Services Section -->
+    
+
+{% endblock %}
