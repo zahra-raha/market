@@ -13,6 +13,11 @@ class PostList(generic.ListView):
     template_name = 'index.html'
     paginate_by = 6
 
+    def get_context_data(self, **kwargs):
+        context = super(PostList, self).get_context_data(**kwargs)
+        context['category'] = Category.objects.order_by('-created_on')
+        return context
+
 
 class PostDetail(View):
     def get(self, request, slug, *args, **kwargs):
@@ -27,6 +32,17 @@ class PostDetail(View):
                 "category": category,
             },
         )
+
+
+class MyPostList(generic.ListView):
+    model = Post
+    queryset = Post.objects.filter(status=0).filter(
+        approved=True).order_by('-created_on')
+    template_name = 'my_posts.html'
+    paginate_by = 6
+
+    def get_queryset(self):
+        return self.model.objects.filter(seller=self.request.user)
 
 
 class NewPost(View):
