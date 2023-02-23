@@ -63,8 +63,11 @@
               <li><strong>Color</strong>: {{ post.color }}</li>
               <li><strong>Dimensions</strong>: {{ post.dimensions }}</li>
               <li><strong>Address</strong>: {{ post.address }}</li>
-              <li><strong>Seller</strong>: {{ post.author }}</li>
+              <li><strong>Seller</strong>: {{ post.seller }}</li>
             </ul>
+            {% if user.is_authenticated and post.seller|stringformat:"s" == user.username %}
+              <a href="{% url 'post_update' post.slug %}"><button class="get-started-btn scrollto">Edit</button></a>
+            {% endif %}
           </div>
           <div class="portfolio-description">
             <h2>More description</h2>
