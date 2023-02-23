@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
+from django.views import generic, View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import generic, View
+
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .models import Post, Category
 from .forms import CategoryForm, PostForm
@@ -24,7 +27,7 @@ class PostList(generic.ListView):
 
 class PostDetail(View):
     def get(self, request, slug, *args, **kwargs):
-        queryset = Post.objects.filter(status=0)
+        queryset = Post.objects
         post = get_object_or_404(queryset, slug=slug)
         category = post.category
         return render(
@@ -127,6 +130,15 @@ class EditPost(View):
                     "post_form": PostForm
                 },
             )
+
+
+class PostSold(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
+        post.status = not post.status
+        post.save()
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
 class DeletePost(generic.DeleteView):

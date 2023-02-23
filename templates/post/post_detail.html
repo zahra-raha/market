@@ -64,8 +64,14 @@
               <li><strong>Dimensions</strong>: {{ post.dimensions }}</li>
               <li><strong>Address</strong>: {{ post.address }}</li>
               <li><strong>Seller</strong>: {{ post.seller }}</li>
+              {% if user.is_authenticated and post.seller|stringformat:"s" == user.username %}
+              <li><strong>Status</strong>:<a href="{% url 'post_status' post.slug %}">
+                 {% if post.status %} Sold {% else %} Not Sold {% endif %}</a></li>
+                 
+              {% endif %}
             </ul>
             {% if user.is_authenticated and post.seller|stringformat:"s" == user.username %}
+             
               <a href="{% url 'post_update' post.slug %}"><button class="get-started-btn scrollto">Edit</button></a>
               <a href="{% url 'post_delete' post.slug %}"><button class="get-started-btn scrollto">Delete</button></a>
             {% endif %}
