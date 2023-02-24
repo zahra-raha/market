@@ -92,7 +92,7 @@
             
               {% endif%}
             {% if post.seller|stringformat:"s" != user.username %}
-              <a href="{% url 'buy' post.slug %}"><button class="get-started-btn scrollto">Buy</button></a>
+              <a href="{% url 'buy' post.slug %}"><button class="get-started-btn scrollto">Contact with seller</button></a>
             {% endif %}
           </div>
           <div class="portfolio-description">

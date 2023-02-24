@@ -9,10 +9,14 @@ STATUS = ((0, "Not Sold"), (1, "Sold"))
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
+    icon = models.CharField(max_length=30 , default='ri-seedling-line')
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["created_on"]
+
+    def name_class(self):
+        return self.name.split(' ')[0]
 
     def __str__(self):
         return self.name

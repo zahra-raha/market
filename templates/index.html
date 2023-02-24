@@ -14,36 +14,14 @@
       </div>
 
       <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+        {% for cat in category %} 
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
-            <i class="ri-store-line"></i>
-            <h3><a href=" ">Lorem Ipsum</a></h3>
+            <i class="{{cat.icon}}"></i>
+            <h3><a href=" ">{{ cat.name }}</a></h3>
           </div>
         </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-bar-chart-box-line"></i>
-            <h3><a href=" ">Dolor Sitema</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-calendar-todo-line"></i>
-            <h3><a href=" ">Sedare Perspiciatis</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-paint-brush-line"></i>
-            <h3><a href=" ">Magni Dolores</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-database-2-line"></i>
-            <h3><a href=" ">Nemos Enimade</a></h3>
-          </div>
-        </div>
+        {% endfor %}
       </div>
 
     </div>
@@ -63,8 +41,9 @@
               <ul id="portfolio-flters">
                 
               <li data-filter="*" class="filter-active">All</li>
-              {% for cat in category %}              
-              <li data-filter=".{{cat.name}}">{{cat.name}}</li>
+              {% for cat in category %}     
+              <li data-filter=".{{ cat.name_class }} ">{{ cat.name }}</li>
+              
               {% endfor %}
               </ul>
           </div>
@@ -73,7 +52,7 @@
           <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
               {% for post in post_list %}
-              <div class="col-lg-4 col-md-6 portfolio-item {{post.category}}">
+              <div class="col-lg-4 col-md-6 portfolio-item {{ post.category.name_class }}">
                   <div class="portfolio-wrap">
                       {% if "placeholder" in post.featured_image.url %}
                       <img class="img-fluid"
@@ -84,9 +63,7 @@
                       <div class="portfolio-info">
                           <h4>{{ post.title }}</h4>
                           <p>Cost: {{ post.cost }}</p>
-                          <div class="image-flash">
-                              <p class="author">Seller: {{ post.author }}</p>
-                          </div>
+                          
                           <div class="portfolio-links">
                               <a href="{% url 'post_detail' post.slug  %}" title="More Details"><i class="bx bx-link"></i><span>More Details</span></a>
                           </div>

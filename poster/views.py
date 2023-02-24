@@ -12,6 +12,14 @@ from .models import Post, Category, Customer
 from .forms import PostForm, CustomerForm
 from django.template.defaultfilters import slugify
 import cloudinary
+from django import template
+
+register = template.Library()
+
+
+@register.filter
+def get_index(value, arg):
+    return value[int(arg)]
 
 
 class PostList(generic.ListView):
