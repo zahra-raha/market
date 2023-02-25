@@ -48,6 +48,22 @@ class PostDetail(View):
         )
 
 
+class CatPostList(View):
+    def get(self, request, cat, *args, **kwargs):
+        post_list = Post.objects.filter(status=0).filter(
+                approved=True).filter(category=cat).order_by('-created_on')
+        category = get_object_or_404(Category, id=cat)
+        
+        return render(
+            request,
+            "post/category_posts.html",
+            {
+                "post_list": post_list,
+                "category": category,
+            },
+        )
+
+
 class MyPostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=0).filter(

@@ -3,13 +3,26 @@
 
 {% block content %}
  <!-- ======= Hero Section ======= -->
+
  <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
-
+      {% if messages %}
+      <div class="container portfolio-details fade show" id="msg">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" id="" role="alert">
+                    {{ message | safe }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
+      {% endif %}
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
         <div class="col-xl-6 col-lg-8">
-          <h1>Powerful Digital Solutions With Gp<span>.</span></h1>
-          <h2>We are team of talented digital marketers</h2>
+          <h1>Its time to Save <span>More</span></h1>
         </div>
       </div>
 
@@ -18,7 +31,7 @@
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="{{cat.icon}}"></i>
-            <h3><a href=" ">{{ cat.name }}</a></h3>
+            <h3><a href="{% url 'cat_posts' cat.id  %}">{{ cat.name }}</a></h3>
           </div>
         </div>
         {% endfor %}

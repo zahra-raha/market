@@ -17,11 +17,12 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-  <div class="container portfolio-details">
+  {% if messages%}
+  <div class="container  portfolio-details fade show" id="msg">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" id="" role="alert">
                 {{ message | safe }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -29,6 +30,7 @@
         </div>
     </div>
   </div>
+  {% endif%}
   <section class="inner-page">
     <div class="container">
       <div class="row justify-content-center">

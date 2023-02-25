@@ -51,33 +51,29 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li class="nav-item">
-            <a class="nav-link scrollto active" aria-current="page" href="{% url 'home' %}">Home</a>
+            <a class="nav-link scrollto {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           {% if user.is_authenticated %}
-          <li class="dropdown"><a href="#"><span>My Advertisements</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="{% url 'my_posts' %}">All advertisements</a></li>
-              <li><a href="{% url 'new_post' %}">New Addvertisement</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link scrollto {% if request.resolver_match.url_name == 'my_posts' %}active{% endif %}" href="{% url 'my_posts' %}">Dashboard</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link scrollto" href="{% url 'account_logout' %}">Logout</a>
+              <a class="nav-link scrollto {% if request.resolver_match.url_name == 'account_logout' %}active{% endif %}" href="{% url 'account_logout' %}">Logout</a>
           </li>
           {% else %}
           <li class="nav-item">
-              <a class="nav-link scrollto" href="{% url 'account_signup' %}">Register</a>
+              <a class="nav-link scrollto {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}" href="{% url 'account_signup' %}">Register</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link scrollto" href="{% url 'account_login' %}">Login</a>
+              <a class="nav-link scrollto {% if request.resolver_match.url_name == 'account_login' %}active{% endif %}" href="{% url 'account_login' %}">Login</a>
           </li>
           {% endif %}
-
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
-      <a href="#about" class="get-started-btn scrollto">Get Started</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'new_post' %}" class="get-started-btn scrollto">Add Addvertisement</a>
+      {% endif %}
 
     </div>
   </header><!-- End Header -->
@@ -94,14 +90,10 @@
  
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Gp</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Market Place</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://github.com/zahra-raha">Zahra Hassani</a>
       </div>
     </div>
   </footer><!-- End Footer -->

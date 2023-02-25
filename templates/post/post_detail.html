@@ -8,21 +8,21 @@
     <div class="container">
 
       <div class="d-flex justify-content-between align-items-center">
-        <h2>Portfolio Details</h2>
+        <h2>Item Details</h2>
         <ol>
           <li><a href="/">Home</a></li>
-          <li>Advertisement Details</li>
+          <li>Item Details</li>
         </ol>
       </div>
 
     </div>
   </section><!-- End Breadcrumbs -->
   {% if messages %}
-  <div class="container portfolio-details">
+  <div class="container  portfolio-details fade show" id="msg">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" id="" role="alert">
                 {{ message | safe }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -71,7 +71,7 @@
           <div class="portfolio-info">
             <h3>{{post.title}}</h3>
             <ul>
-              <li><strong>Category</strong>: <a href="#">{{ post.category }}</a></li>
+              <li><strong>Category</strong>: <a href="#">{{ post.category_set }}</a></li>
               <li><strong>Cost</strong>: {{ post.cost }}</li>
               <li><strong>Condition</strong>: {{ post.condition }}</li>
               <li><strong>Color</strong>: {{ post.color }}</li>
@@ -92,7 +92,7 @@
             
               {% endif%}
             {% if post.seller|stringformat:"s" != user.username %}
-              <a href="{% url 'buy' post.slug %}"><button class="get-started-btn scrollto">Contact with seller</button></a>
+              <a href="{% url 'buy' post.slug %}"><button class="get-started-btn scrollto">Contact seller</button></a>
             {% endif %}
           </div>
           <div class="portfolio-description">
