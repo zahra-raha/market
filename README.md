@@ -2,7 +2,7 @@
 
 **Market Place** is a safe and unique place, where sellers can easily advertise thier second handed items. Our mission is to help people find thier needed items and contact to the seller through prepared from. Market Place launched in February 2023.
 
-![Responsive Mockup](https://github.com/zahra-raha/market/static/img/Capture1.PNG)
+![Responsive Mockup](https://github.com/zahra-raha/market/blob/main/static/img/Capture1.PNG)
 
 
 # Super Admin credentials
@@ -44,22 +44,6 @@ Deployed link : https://zahra-market-place.herokuapp.com/
 
 - To help people in yard sales
 - To create a fully functional website using best technologies 
-
-### User Story
-
-```
-As a user, I want to be able to record the trips I am taking in a given Vehicle
-```
-
-Criteria
-
-- Site must have a database that is fully functional
-
-Implementation
-
-- Install postgres database
-
-
 
 # Features
 
@@ -161,97 +145,106 @@ ElephantSQL is providing PostgreSQL as a service and installs and manages Postgr
 ## Code Validation
 
 ## Manual Testing
-
+1. Regular user
+  - Home page is the first page user will see.
+  - Website menu contain links to Register page and Login page
+  - Regular user can view the home page and advertisement detail page
+  - Regular user can filter advertisements based on category
+  - Regular user can contact to a seller and send a message
+2. Seller user
+  - Website menu contain links to Register page and Login page
+  - Both register and login works as it should
+  - first page a seller will see after login is dashboard
+  - Seller has all access a regular user has
+  - Dashboard contain all the advertisemen of the user (approved or not, sold or not)
+  - Seller can use Add Advertisement button to create a new advertisement
+  - Seller can create new advertisement without any error
+  - An alert will be shown to the seller when he creates a new advertisement about approval
+  - Seller can update the status of his advertisement 
+  - Seller can update details of his advertisement
+  - Seller can delete his advertisement
+  - Seller can view prospective customers of his advertisements &check;
+3. Super Admin
+  - Super admin can manage all categories, customer ,messages and advertisement posts
+  - Super admin can approve advertisements
+## Unfixed Bugs
+- 
 # Deployment
-#### Creation of a Python Virtual Environment ####
-Creating a virtual python environment allows you to only install the packages required for your project and helps to stop system wide packages causing errors within your project. 
-When using VS Code, if there is a venv folder in your project, it will automatically start the virtual environment when you open the terminal. 
+## Set up ElephantSQL as Database for this application ##
 
-*Note: The process may be different depending upon your own OS - please follow this [Python help guide](https://python.readthedocs.io/en/latest/library/venv.html)
-to understand how to create a virtual environment*
+  - Go to the ElephantSQL website (https://www.elephantsql.com/) and create an account.
 
-#### Install the required packages ####
+  - After creating an account, you will be able to create a new PostgreSQL database. Choose the plan that best fits your needs and click "Create new instance".
 
-- After initialising the venv, in your IDE terminal, install the dependencies from the requirements.txt file with the following command:
+  - Give your database a name and select a region.
+
+  - Once the database is created, you will see the database details page. Here, you can find the connection details for your database, including the hostname, port, database name, and username.
+
+  - To connect to the database using the connection details provided.
+## Set Up Cloudinary to host images and template files ##
+
+  - Sign up for a Cloudinary account at https://cloudinary.com/users/register/free.
+
+  - In the dashboard, you will see your "Cloud Name", "API Key", and "API Secret". These are saved as environment valiables in ***Heruko*** and .env local file.
+
+  - Install the Cloudinary Python library by running the following command:
+
+        pip install cloudinary
+
+  - Add cloudinary in INSTALLED_APPS list in settings.py
+  - Add the following code to your Django settings file to configure the Cloudinary library with your account credentials:
+
+    ```
+      STATIC_URL = '/static/'
+      STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+      STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+      STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+      CLOUDINARY_STORAGE = {
+          'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+          'API_KEY': os.environ.get('API_KEY'),
+          'API_SECRET': os.environ.get('API_SECRET'),
+      }
+      
+      MEDIA_URL = '/media/'
+      DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    ```
+  - Run the following command to apply the changes to your Django project:
+    ```
+        python manage.py migrate
+    ```
+
+## Deployment to Heroku ##
+  - On Heroku create an account and log in.
+  - Goto ci-students team
+  - Click ***new*** and ***create new app***.
+  - Choose a name for your app, select region and click on ***Create App***
+  - Create an account and set up a PostgreSGL database in [Elephantsql](https://www.elephantsql.com/docs/index.html)
+  - Under the ***Settings*** click ***Reveal Config Vars*** and all environment variables:
+    - Set IP to 0.0.0.0 
+    - Set PORT to 8000
+    - Set DATABASE_URL
+    - Set CLOUDINARY_URL 
+    - Set HEROKU_HOSTNAME 
+    - Set API_KEY 
+    - Set API_SECRET
+    - Set CLOUD_NAME
+    - Set HEROKU_POSTGRESQL_ROSE_URL
+    - Set SECRET_KEY 
+  - In the local IDE:
+    - Pip install dependencies.
+    - Create ***requirements.txt*** ($ pip3 freeze --local > requirements.txt)
+    - Create a ***Procfile*** (```$ echo web: gunicorn <app_name>.wsgi > Procfile```)
+    - Create an evn.py file and add all your environment variables.
+    - Create a .gitignore file and add your env.py files
+    - Push all the changes
+  
+  - In Heroku ***Deploy*** Tab, the ***deployment method*** select Github,connect you gethub account if its not already connected
+  - Select repository
+  - Scroll down to Manual deploy and deploy branch.
+  - Once the build is complete, go back to Heroku and click on ***Open App***
  
-pip install -r requirements.txt
-
-#### Create the database in PostgreSQL #####
-- Download the postgres client from their website [postgreSQL](https://www.postgresql.org/download/) and follow the set up guidance in the wizard. 
-- If you are using windows, in order to use the PSQL terminal in your IDE, you will need to set up environment variables to point to the terminal application. A Guide to do this can be found here [Terminal](https://blog.sqlbackupandftp.com/setting-windows-path-for-postgres-tools)
-
- #### Create env.py file ####
-
-- The env.py file should contain the below details:
-- when deploying to heroku, these also need to be configured in the config vars section
-
-```
-import os
-
-os.environ.setdefault("IP", "0.0.0.0")
-os.environ.setdefault("PORT", "5000")
-os.environ.setdefault("SECRET_KEY", "your_secret_key")
-os.environ.setdefault("DB_URL", "postgresql:///databasename")
-
-```
-
-- Please ensure you add in your own SECRET_KEY and DB_URL values.
-- Ensure that the env file is in your 
-
-#### Run the application ####
-
-- To run the application enter the following command into the terminal window:
-
-```
-python3 app.py
-```
-
-### Deploying the app to Heroku ###
-
-#### Create the Heroku App ####
-
-- Ensure you have an account created at [Heroku](https://signup.heroku.com/login)
-- Log in to your Heroku account dashboard and create a new app.
-#### Push your repository to GitHub ####
-
-- Commit and push your local repository to your GitHub linked repository
-
-- create the Procile and requirements file using the following commands:
-
-
-echo web: python app.py > Procfile
-pip3 freeze --local > requirements.txt
-
-
-- Push your local Git repository to GitHub
-
-#### Connect Heroku to GitHub ####
-
-- In the Heroku App Settings page, open the section Config Vars
-- Add all the variables from the env file as individual vars
-
-
-- In the Heroku App Deploy page: 
-  - Select GitHub from the Deployment Method options
-  - Select Connect to GitHub
-  - Log in to your GitHub account from Heroku to link the App to GitHub
-  - Search for and select the repository to be linked in Github
-  - Select Connect
-  - Select Enable Automatic Deployment from GitHub
-
-- Then create the database in the python shell via heroku: 
-    - Select more, then Run console
-    - Type in 'Python'
-    - Once the python shell opens, type 'from mileagetracker import db'
-    - then type db.create_all()
-
-#### Launch the App ####
-
-- Click Open App in Heroku to launch the App in a new browser window.
-
-**Successful deployment**
-[Heroku deployment](https://milestone3-mileage-tracker.herokuapp.com/login)
 # Credits
-
-- Task Manager Tutorial
-- Flask documentation for flask-login implementation [docs](https://flask.palletsprojects.com/en/2.1.x/)
+- I Think Therefore I Blog Tutorial in [Code Institute](https://codeinstitute.net/global/)
+- [Gp Multipurpose HTML and Bootstrap Template](https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/)
+- [Stackoverflow website](https://stackoverflow.com/)
