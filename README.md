@@ -146,29 +146,32 @@ ElephantSQL is providing PostgreSQL as a service and installs and manages Postgr
 
 ## Manual Testing
 1. Regular user
-  - Home page is the first page user will see.
-  - Website menu contain links to Register page and Login page
-  - Regular user can view the home page and advertisement detail page
-  - Regular user can filter advertisements based on category
-  - Regular user can contact to a seller and send a message
+  - Home page is the first page user will see. &check;
+  - Website menu contain links to Register page and Login page. &check;
+  - Regular user can view the home page and advertisement detail page. &check;
+  - Regular user can filter advertisements based on category. &check;
+  - Regular user can contact to a seller and send a message. &check;
 2. Seller user
-  - Website menu contain links to Register page and Login page
-  - Both register and login works as it should
-  - first page a seller will see after login is dashboard
-  - Seller has all access a regular user has
-  - Dashboard contain all the advertisemen of the user (approved or not, sold or not)
-  - Seller can use Add Advertisement button to create a new advertisement
-  - Seller can create new advertisement without any error
-  - An alert will be shown to the seller when he creates a new advertisement about approval
-  - Seller can update the status of his advertisement 
-  - Seller can update details of his advertisement
-  - Seller can delete his advertisement
-  - Seller can view prospective customers of his advertisements &check;
+  - Website menu contain links to Register page and Login page. &check;
+  - Both register and login works as it should. &check;
+  - first page a seller will see after login is dashboard. &check;
+  - Seller has all access a regular user has. &check;
+  - Dashboard contain all the advertisemen of the user (approved or not, sold or not). &check;
+  - Seller can use Add Advertisement button to create a new advertisement. &check;
+  - Seller can create new advertisement without any error. &check;
+  - An alert will be shown to the seller when he creates a new advertisement about approval. &check;
+  - Seller can update the status of his advertisement . &check;
+  - Seller can update details of his advertisement. &check;
+  - Seller can delete his advertisement.  &check;
+  - Seller can view prospective customers of his advertisements. &check;
 3. Super Admin
-  - Super admin can manage all categories, customer ,messages and advertisement posts
-  - Super admin can approve advertisements
+  - Super admin can manage all categories, customer ,messages and advertisement posts.  &check;
+  - Super admin can approve advertisements.  &check;
 ## Unfixed Bugs
-- 
+- I see an error in browsers console as:
+    ```
+    Uncaught TypeError: Cannot read properties of null 
+    ```
 # Deployment
 ## Set up ElephantSQL as Database for this application ##
 
