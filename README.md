@@ -142,8 +142,6 @@ Cloudinary is image and vedio API provider.
 ElephantSQL is providing PostgreSQL as a service and installs and manages PostgreSQL databases.
 
 # Testing
-## Code Validation
-
 ## Manual Testing
 1. Regular user
   - Home page is the first page user will see. &check;
