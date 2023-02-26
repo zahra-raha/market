@@ -118,7 +118,7 @@ class NewPost(View):
 class EditPost(View):
     def get(self, request, slug, *args, **kwargs):
         # queryset = Post.objects
-        post = get_object_or_404(Post, slug=slug)
+        post = get_object_or_404(Post, slug=slug, seller=request.user)
         post_form = PostForm(instance=post)
         return render(
             request,
@@ -130,7 +130,7 @@ class EditPost(View):
 
     def post(self, request, slug, *args, **kwargs):
         # queryset = Post.objects
-        post = get_object_or_404(Post, slug=slug)
+        post = get_object_or_404(Post, slug=slug, seller=request.user)
         post_form = PostForm(data=request.POST, files=request.FILES,
                              instance=post)
 
@@ -162,7 +162,7 @@ class EditPost(View):
 class PostSold(View):
 
     def get(self, request, slug, *args, **kwargs):
-        post = get_object_or_404(Post, slug=slug)
+        post = get_object_or_404(Post, slug=slug, seller=request.user)
         post.status = not post.status
         post.save()
         messages.success(request, "Advertisement status changed successfully!")
@@ -212,7 +212,7 @@ class DeletePost(SuccessMessageMixin, generic.DeleteView):
 
 class Customers(View):
     def get(self, request, slug, *args, **kwargs):
-        post = get_object_or_404(Post, slug=slug)
+        post = get_object_or_404(Post, slug=slug, seller=request.user)
         customer_list = Customer.objects.filter(post_id=post).order_by(
                                                 '-created_on')
         paginator = Paginator(customer_list, 4)

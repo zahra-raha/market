@@ -55,10 +55,10 @@
 
               <div class="swiper-slide">
                 {% if "placeholder" in post.featured_image.url %}
-                    <img 
+                    <img  alt="codeinstitute image"
                         src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
                   {% else %}
-                    <img  src=" {{ post.featured_image.url }}">
+                    <img  alt="{{post.title}}" src=" {{ post.featured_image.url }}">
                   {% endif %}
               </div>
 
@@ -71,7 +71,7 @@
           <div class="portfolio-info">
             <h3>{{post.title}}</h3>
             <ul>
-              <li><strong>Category</strong>: <a href="#">{{ post.category_set }}</a></li>
+              <li><strong>Category</strong>: <a href="{% url 'cat_posts' post.category.id  %}">{{ post.category }}</a></li>
               <li><strong>Cost</strong>: {{ post.cost }}</li>
               <li><strong>Condition</strong>: {{ post.condition }}</li>
               <li><strong>Color</strong>: {{ post.color }}</li>
